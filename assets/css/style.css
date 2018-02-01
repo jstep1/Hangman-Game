@@ -1,0 +1,54 @@
+* {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: white;
+}
+
+.bkr {
+        background-attachment: fixed;
+        background-size: contain;
+}
+
+.hdr {
+    font-size: 36px;
+    text-align: center;
+    background-color: black;
+    width: 100%;
+    border-radius: 15px;
+    padding: 2%;
+}
+
+.crdr {
+    width: 70%;
+    float: right;
+    text-align: center;
+    background-color: black;
+}
+
+.crdl {
+    width: 70%;
+    float: left;
+    text-align: center;
+    background-color: black;
+}
+
+.pics {
+    margin-left: auto;
+    margin-right: auto;
+    width: 8em;
+    height: 250px;
+    width: 250px;
+}
+
+@media screen and (max-width 500px) {
+
+    .pics {
+        height: 100px;
+        width: 100px;
+    }
+
+    .crdr {
+        float: right;
+    }
+
+}
