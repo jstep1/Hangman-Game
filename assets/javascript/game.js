@@ -32,6 +32,14 @@ document.querySelector('#left').innerHTML = guesses;
 // Event code initialized. Each event will reduce the number of guesses left by 1 and will reset the necessary variables after each instance.
 
 document.onkeyup = function(event) {
+    var correct = function(a, b) {
+        for(var i = 0; i < a.length; i++;) {
+            if(a[i] !== b[i])
+                return false;
+        }
+        return true;
+    }
+
     var reset = function() {
         guesses = 13;
         guessedLetters = [];
@@ -59,19 +67,20 @@ document.onkeyup = function(event) {
 // Logic to update variables of the function
 
     if(answer.includes(event.key) && guesses > 0) {
-            wordArray[[answer.indexOf(event.key)]] = answer[[answer.indexOf(event.key)]];
+            wordArray[(answer.indexOf(event.key))] = answer[(answer.indexOf(event.key))];
             document.querySelector('#word').innerHTML = word;
             document.querySelector('#left').innerHTML = guesses;
         }
-    else if(guesses === 0 && event.key !== answer) {
-            alert("MR. ROBOT OUTSMARTED YOU... TRY AGAIN!");
-            document.querySelector('#left').innerHTML = guesses;
-            reset();
+    else if(correct(wordArray, answer) && guesses > 0) {
+            alert("YOU WIN!");
         }
     else {
+        alert("MR. ROBOT OUTSMARTED YOU... TRY AGAIN!");
         document.querySelector('#left').innerHTML = guesses;
+        reset();
     }
     }
+
     // else {
     //         alert("CONGRATULATIONS! YOU WON!");
     //         wins++;
