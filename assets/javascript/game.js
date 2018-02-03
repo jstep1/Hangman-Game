@@ -1,6 +1,9 @@
 // Initialize array of character choices
 
-var cpu = [['e', 'l', 'l', 'i', 'o', 't'], ['d', 'a', 'r', 'l', 'e', 'n', 'e'], ['a', 'n', 'g', 'e', 'l', 'a'], ['r', 'o', 'm', 'e', 'r', 'o'], ['w', 'h', 'i', 't', 'e', 'r', 'o', 's', 'e'], ['m', 'r', '.', ' ', 'r', 'o', 'b', 'o', 't'], ['l', 'e', 'o', 'n'], ['t', 'y', 'r', 'e', 'l', 'l'], ['p', 'h', 'i', 'l', 'l', 'i', 'p'], ['j', 'o', 'a', 'n', 'n', 'a'], ['g', 'i', 'd', 'e', 'o', 'n'], ['t', 'e', 'r', 'r', 'y'], ['t', 'r', 'e', 'n', 't', 'o', 'n'], ['m', 'o', 'b', 'l', 'e', 'y'], ['c', 'i', 's', 'c', 'o']];
+var cpu = [// ['e', 'l', 'l', 'i', 'o', 't'], ['d', 'a', 'r', 'l', 'e', 'n', 'e'], ['a', 'n', 'g', 'e', 'l', 'a'], ['r', 'o', 'm', 'e', 'r', 'o'], ['w', 'h', 'i', 't', 'e', 'r', 'o', 's', 'e'], ['m', 'r', '.', ' ', 'r', 'o', 'b', 'o', 't'],
+['l', 'e', 'o', 'n'], 
+//['t', 'y', 'r', 'e', 'l', 'l'], ['p', 'h', 'i', 'l', 'l', 'i', 'p'], ['j', 'o', 'a', 'n', 'n', 'a'], ['g', 'i', 'd', 'e', 'o', 'n'], ['t', 'e', 'r', 'r', 'y'], ['t', 'r', 'e', 'n', 't', 'o', 'n'], ['m', 'o', 'b', 'l', 'e', 'y'], ['c', 'i', 's', 'c', 'o']
+];
 
 // Create starting values for each variable
 
@@ -25,6 +28,14 @@ var pick = function() {
 
 pick();
 
+var correct = function(a, b) {
+    for(var i = 0; i < a.length; i++) {
+        if(a[i] !== b[i])
+            return false;
+    }
+    return true;
+}
+
 document.querySelector('#word').innerHTML = word;
 document.querySelector('#left').innerHTML = guesses;
 
@@ -32,13 +43,6 @@ document.querySelector('#left').innerHTML = guesses;
 // Event code initialized. Each event will reduce the number of guesses left by 1 and will reset the necessary variables after each instance.
 
 document.onkeyup = function(event) {
-    var correct = function(a, b) {
-        for(var i = 0; i < a.length; i++;) {
-            if(a[i] !== b[i])
-                return false;
-        }
-        return true;
-    }
 
     var reset = function() {
         guesses = 13;
@@ -67,18 +71,24 @@ document.onkeyup = function(event) {
 // Logic to update variables of the function
 
     if(answer.includes(event.key) && guesses > 0) {
-            wordArray[(answer.indexOf(event.key))] = answer[(answer.indexOf(event.key))];
-            document.querySelector('#word').innerHTML = word;
+        wordArray[(answer.indexOf(event.key))] = answer[(answer.indexOf(event.key))];
+        word = wordArray.join(" ");
+        document.querySelector('#word').innerHTML = word;
+        document.querySelector('#left').innerHTML = guesses;
+    }
+    
+    if(correct(wordArray, answer) && guesses > 0) {
+            alert("YOU WIN!");
+            wins++;
+            reset();
+            document.querySelector('#wins').innerHTML = wins;
             document.querySelector('#left').innerHTML = guesses;
         }
-    else if(correct(wordArray, answer) && guesses > 0) {
-            alert("YOU WIN!");
-        }
-    else {
-        alert("MR. ROBOT OUTSMARTED YOU... TRY AGAIN!");
-        document.querySelector('#left').innerHTML = guesses;
+    else if(guesses === 0) {
+        alert("You lose!")
         reset();
     }
+
     }
 
     // else {
