@@ -95,6 +95,7 @@ document.onkeyup = function(event) {
             wins++;
             answer = answer.join("");
             document.querySelector('#character').innerHTML = answer.toUpperCase();
+            document.querySelector('#pic').innerHTML = "<img class='pics' src='https://jstep1.github.io/Hangman-Game/assets/images/" + answer + ".jpg' </img>"
             reset();
             document.querySelector('#wins').innerHTML = wins;
             document.querySelector('#left').innerHTML = guesses;
