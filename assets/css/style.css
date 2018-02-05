@@ -33,7 +33,7 @@
 }
 
 .pics {
-    margin-left: -25%;
+    margin-left: auto;
     width: 8em;
     height: 150px;
     width: 200px;
@@ -42,6 +42,7 @@
 @media screen and (max-width 500px) {
 
     .pics {
+        margin: auto;
         height: 100px;
         width: 100px;
     }
