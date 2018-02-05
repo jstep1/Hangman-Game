@@ -1,8 +1,7 @@
 // Initialize array of character choices
 
-var cpu = [// ['e', 'l', 'l', 'i', 'o', 't'], ['d', 'a', 'r', 'l', 'e', 'n', 'e'], ['a', 'n', 'g', 'e', 'l', 'a'], ['r', 'o', 'm', 'e', 'r', 'o'], ['w', 'h', 'i', 't', 'e', 'r', 'o', 's', 'e'], ['m', 'r', '.', ' ', 'r', 'o', 'b', 'o', 't'],
-['l', 'e', 'o', 'n'], 
-//['t', 'y', 'r', 'e', 'l', 'l'], ['p', 'h', 'i', 'l', 'l', 'i', 'p'], ['j', 'o', 'a', 'n', 'n', 'a'], ['g', 'i', 'd', 'e', 'o', 'n'], ['t', 'e', 'r', 'r', 'y'], ['t', 'r', 'e', 'n', 't', 'o', 'n'], ['m', 'o', 'b', 'l', 'e', 'y'], ['c', 'i', 's', 'c', 'o']
+var cpu = [['e', 'l', 'l', 'i', 'o', 't'], ['d', 'a', 'r', 'l', 'e', 'n', 'e'], ['a', 'n', 'g', 'e', 'l', 'a'], ['r', 'o', 'm', 'e', 'r', 'o'], ['w', 'h', 'i', 't', 'e', 'r', 'o', 's', 'e'], ['m', 'r', '.', ' ', 'r', 'o', 'b', 'o', 't'],
+['l', 'e', 'o', 'n'], ['t', 'y', 'r', 'e', 'l', 'l'], ['p', 'h', 'i', 'l', 'l', 'i', 'p'], ['j', 'o', 'a', 'n', 'n', 'a'], ['g', 'i', 'd', 'e', 'o', 'n'], ['t', 'e', 'r', 'r', 'y'], ['t', 'r', 'e', 'n', 't', 'o', 'n'], ['m', 'o', 'b', 'l', 'e', 'y'], ['c', 'i', 's', 'c', 'o']
 ];
 
 // Create starting values for each variable
@@ -55,6 +54,14 @@ document.onkeyup = function(event) {
         document.querySelector('#guess').innerHTML = guessedLetters;
     }
 
+    var multipleLetters = function() {
+        for(var i=0; i<answer.length; i++) {
+            if(event.key === answer[i]) {
+                wordArray[i] = answer[i];
+            }
+        }
+    }
+
     guesses--;
 
 //The following statement produces a string that will add a comma to the string unless it is the last input before a loss
@@ -70,33 +77,33 @@ document.onkeyup = function(event) {
 
 // Logic to update variables of the function
 
+// wordArray[(answer.indexOf(event.key))] = answer[(answer.indexOf(event.key))];
+
     if(answer.includes(event.key) && guesses > 0) {
-        wordArray[(answer.indexOf(event.key))] = answer[(answer.indexOf(event.key))];
+        multipleLetters();
         word = wordArray.join(" ");
+        word = word.toUpperCase();
         document.querySelector('#word').innerHTML = word;
+        document.querySelector('#left').innerHTML = guesses;
+    }
+    else if(!answer.includes(event.key && guesses > 0)) {
         document.querySelector('#left').innerHTML = guesses;
     }
     
     if(correct(wordArray, answer) && guesses > 0) {
             alert("YOU WIN!");
             wins++;
+            answer = answer.join("");
+            document.querySelector('#character').innerHTML = answer.toUpperCase();
             reset();
             document.querySelector('#wins').innerHTML = wins;
             document.querySelector('#left').innerHTML = guesses;
         }
     else if(guesses === 0) {
-        alert("You lose!")
+        answer = answer.join("");
+        alert("YOU LOSE! THE CORRECT ANSWER WAS: " + answer.toUpperCase());
+        document.querySelector('#character').innerHTML = answer.toUpperCase();
         reset();
     }
 
     }
-
-    // else {
-    //         alert("CONGRATULATIONS! YOU WON!");
-    //         wins++;
-    //         reset();
-    //         document.querySelector('#wins').innerHTML = wins;
-    //         document.querySelector('#left').innerHTML = guesses;
-    //     }
-      
-    // }
